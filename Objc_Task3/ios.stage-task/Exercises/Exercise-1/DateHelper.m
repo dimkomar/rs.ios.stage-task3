@@ -83,8 +83,27 @@
 
 #pragma mark - Fourth
 
+/*
+ Задание: Проверить является ли введенная дата датой на текущей неделе.
+ Пример: Текущая неделя с 17 по 23 мая 2021 года, если ввести дату 23.05.2021,
+ то на выходе мы получим “YES”, так как данная дата относится к текущей неделе.
+ Если мы введем дату 24.05.2021, то мы получим “NO”, так как эта дата относится к следующей неделе.
+ */
 - (BOOL)isDateInThisWeek:(NSDate *)date {
-    return NO;
+    
+    NSString *stringStart = @"2021-05-16T23:59:59.999+00:00";
+    NSString *stringEnd = @"2021-05-24T00:00:00.001+00:00";
+    NSString *dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSxxx";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = dateFormat;
+    NSTimeInterval startDate = [[dateFormatter dateFromString:stringStart] timeIntervalSince1970];
+    NSTimeInterval endDate = [[dateFormatter dateFromString:stringEnd] timeIntervalSince1970];
+    
+    NSTimeInterval ti = [date timeIntervalSince1970];
+    
+    if (ti > startDate && ti < endDate){
+        return YES;
+    } else return NO;
 }
 
 @end
